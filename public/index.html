@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Express</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        // function arquivoUpload(){
+        //     var fileInput = document.getElementById("myFile");
+        //     console.log(fileInput.files[0])
+        //     var xhttp = new XMLHttpRequest();
+        //     xhttp.open("POST", "getfile", true);
+        //     xhttp.setRequestHeader("Content-type", fileInput.files[0].type);
+        //     xhttp.send(fileInput.files[0]);
+        // }
+        function requestJson() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("paragrafoAlterar").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", "/api/members", true);
+            xhttp.send();
+        }
+    </script>
+</head>
+<body>
+    <h1>Lista 04</h1>
+    <h2>Aluno:Pedro Alves de Souza Neto</h2>
+    <h2>Matéria: CES26</h2>
+    <p>Foi feito o download de html(arquivo estatico)<br></p>
+<!--    <input type="file" id="myFile" name="file" onchange="arquivoUpload()">-->
+    <p>Faz upload de arquivos(Vai para a pasta 'uploads')<br></p>
+    <form id="myForm" method="post" enctype="multipart/form-data" action="/getfile">
+        <input type="file" name="file">
+        <input type="submit">
+    </form>
+    <br>
+    <p>Filtra os membros por quem possui "data" menor que a selecionada</p>
+    <br>
+    <form method="get" action="/api/getdata">
+        <input type="date" name="data"/>
+        <input type="submit"/>
+    </form>
+
+    <p>O botão abaixo, altera o paragrafo abaixo, por via de Ajax e request</p>
+    <button onclick="requestJson()">Pega JSON</button>
+    <p id="paragrafoAlterar">Paragrafo que será alterado</p>
+</body>
+</html>
